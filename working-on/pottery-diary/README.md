@@ -1,0 +1,1 @@
+In `ideas.md` I documented the rough ideas for another side project I'm interested in working on. 

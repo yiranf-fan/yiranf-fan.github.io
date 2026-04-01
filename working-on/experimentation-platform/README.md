@@ -1,0 +1,1 @@
+The link to the full repository on Github (https://github.com/yiranf-fan/intervention-effects-lab) should be the main deliverable for this WIP project on my personal website. `outline.md` is to provide you a high-level understanding of what this side project is about. 

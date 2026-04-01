@@ -73,7 +73,7 @@
       border-bottom: 1px solid var(--rule-bold);
     }
 
-    .hero-body { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 2rem 0 3rem; }
+    .hero-body { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 2rem 0 1rem; }
 
     .hero-tag {
       font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
@@ -87,6 +87,12 @@
       font-size: clamp(2.8rem, 6vw, 5rem);
       font-weight: 400; line-height: 0.95;
       letter-spacing: -0.02em; color: var(--ink);
+    }
+    .hero-cn {
+      font-family: 'Hiragino Mincho ProN', 'Songti SC', 'STSong', 'SimSun', serif;
+      font-size: 1.6rem; letter-spacing: 0.3em;
+      color: var(--ink-mid); margin-top: 0.9rem;
+      font-weight: 400;
     }
 
     .hero-pull {
@@ -115,7 +121,7 @@
       color: var(--ink-dim); display: block; margin-bottom: 0.2rem;
     }
     .strip-val { font-size: 0.82rem; color: var(--ink-mid); }
-    .avail { display: flex; align-items: center; gap: 0.5rem; }
+    .avail { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; }
     .avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #3EAF6C; flex-shrink: 0; }
 
     /* ─── Section ─── */
@@ -213,8 +219,8 @@
       font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
       color: var(--green); padding-top: 0.15rem;
     }
-    .curr-v { font-size: 0.82rem; color: var(--ink-mid); line-height: 1.5; }
-    .curr-v em { font-style: italic; color: var(--ink); font-family: 'Young Serif', serif; font-size: 0.95rem; }
+    .curr-v { font-size: 0.85rem; color: var(--ink-mid); line-height: 1.6; }
+    .curr-v em { font-style: italic; color: var(--ink); }
 
     /* ─── Thinking ─── */
     .notes-list { display: flex; flex-direction: column; }
@@ -240,12 +246,53 @@
     }
     .contact-body { font-size: 0.9rem; color: var(--ink-mid); line-height: 1.85; max-width: 50ch; margin-bottom: 1.5rem; }
     .contact-email {
-      font-family: 'Young Serif', serif;
-      font-size: 1.05rem; color: var(--green); text-decoration: none;
-      border-bottom: 1px solid rgba(37,99,235,0.3); padding-bottom: 0.1rem;
-      transition: border-color 0.15s;
+      font-family: 'Recursive', monospace;
+      font-variation-settings: 'MONO' 1, 'wght' 400;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--green);
+      background: none;
+      border: 1px solid rgba(37, 99, 235, 0.35);
+      border-radius: 3px;
+      padding: 0.45em 0.85em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.2s ease, border-color 0.2s ease;
     }
-    .contact-email:hover { border-color: var(--green); }
+    .contact-email::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--green);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 0;
+    }
+    .contact-email:hover::before { transform: scaleX(1); }
+    .contact-email:hover { color: #fff; border-color: var(--green); }
+    .contact-email span { position: relative; z-index: 1; }
+    .contact-email .bracket { color: rgba(37, 99, 235, 0.45); transition: color 0.2s ease; }
+    .contact-email:hover .bracket { color: rgba(255, 255, 255, 0.55); }
+    .contact-toast {
+      margin-left: 0.75rem;
+      font-family: 'Recursive', monospace;
+      font-variation-settings: 'MONO' 1;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--green);
+      opacity: 0;
+      transform: translateY(2px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .contact-toast.show {
+      opacity: 0.85;
+      transform: translateY(0);
+    }
     .contact-links { margin-top: 2rem; display: flex; gap: 2rem; flex-wrap: wrap; }
     .c-link { font-size: 0.75rem; color: var(--ink-dim); text-decoration: none; transition: color 0.15s; }
     .c-link:hover { color: var(--green); }
@@ -293,46 +340,118 @@
     }
 
 
-/* ─── Hobby photos ─── */
-    .hobby-section { margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid var(--rule); }
-    .hobby-head { margin-bottom: 1.5rem; }
-    .hobby-label {
-      font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green);
-      display: block;
+/* ─── Hobby photos — editorial ─── */
+    .hobby-section { margin-top: 3rem; padding-top: 2.5rem; }
+    .hobby-head {
+      display: flex; align-items: baseline; gap: 1.25rem;
+      padding-bottom: 0.75rem; margin-bottom: 0;
     }
-    .hobby-label::before { content: '/ '; opacity: 0.5; }
-    .hobby-hint { font-size: 0.55rem; color: var(--ink-dim); margin-top: 0.2rem; display: block; }
-    .hobby-cat { margin-bottom: 2rem; }
-    .hobby-cat:last-child { margin-bottom: 0; }
-    .hc-label { font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-dim); margin-bottom: 0.75rem; display: block; }
-    .photo-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+    .hobby-label {
+      font-family: 'Young Serif', serif;
+      font-size: 1.15rem; letter-spacing: -0.015em;
+      color: var(--ink); font-style: italic; display: inline;
+    }
+    .hobby-label::before { content: none; }
+    .hobby-hint {
+      font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--ink-dim); display: inline-block;
+    }
+
+    /* ── Category strips ── */
+    .hobby-cat {
+      padding: 1.5rem 0; border-top: 1px solid var(--rule);
+      position: relative; transition: background 0.2s;
+    }
+    .hobby-cat:first-child { border-top: none; }
+    .hobby-cat:last-child { border-bottom: 1px solid var(--rule); }
+
+    /* Per-category accent color variables */
+    .hobby-cat[data-theme="pottery"]    { --ca: #a07660; --cb: rgba(160,118,96,0.045); }
+    .hobby-cat[data-theme="hiking"]     { --ca: #4c7a68; --cb: rgba(76,122,104,0.045); }
+    .hobby-cat[data-theme="furry"]      { --ca: #c9a06a; --cb: rgba(201,160,106,0.045); }
+    .hobby-cat[data-theme="graduation"] { --ca: #7a5890; --cb: rgba(122,88,144,0.04); }
+
+    /* Thin accent stroke on left edge, appears on row hover */
+    .hobby-cat::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 1.5rem; bottom: 1.5rem; width: 1.5px;
+      background: var(--ca, var(--rule));
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .hobby-cat:hover {
+      background: var(--cb, transparent);
+      margin: 0 -2.5rem; padding-left: 2.5rem; padding-right: 2.5rem;
+    }
+    .hobby-cat:hover::before { opacity: 1; }
+
+    /* ── Category header ── */
+    .hc-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 0.9rem;
+    }
+    .hc-label {
+      font-family: 'Young Serif', serif;
+      font-size: clamp(1rem, 2vw, 1.4rem); font-weight: 400; font-style: italic;
+      letter-spacing: -0.01em; color: var(--ink); display: block;
+    }
+    .hc-count {
+      font-size: 0.5rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    /* ── Photo grid ── */
+    .photo-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.45rem; }
     .p-thumb {
       aspect-ratio: 1; position: relative; overflow: hidden;
-      cursor: pointer; transition: transform 0.3s ease;
+      cursor: pointer;
+      transition: transform 0.32s cubic-bezier(0.16,1,0.3,1), box-shadow 0.32s ease;
     }
-    .p-thumb:hover { transform: scale(1.02); }
-    .p-bg { position: absolute; inset: 0; transition: transform 0.5s ease; }
-    .p-thumb:hover .p-bg { transform: scale(1.06); }
+    .p-thumb:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 26px rgba(25,25,25,0.13);
+      z-index: 2;
+    }
+    .p-bg { position: absolute; inset: 0; transition: transform 0.55s cubic-bezier(0.16,1,0.3,1); }
+    .p-thumb:hover .p-bg { transform: scale(1.09); }
+    /* Caption faintly visible at rest, full opacity on hover */
     .p-ov {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(25,25,25,0.42) 0%, transparent 60%);
-      opacity: 0; transition: opacity 0.25s;
-      display: flex; align-items: flex-end; padding: 0.6rem;
+      background: linear-gradient(to top, rgba(20,20,20,0.54) 0%, transparent 58%);
+      opacity: 0.28; transition: opacity 0.28s;
+      display: flex; align-items: flex-end; padding: 0.55rem;
     }
     .p-thumb:hover .p-ov { opacity: 1; }
-    .p-cap { font-size: 0.48rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.85); font-family: 'Recursive', sans-serif; }
+    .p-cap {
+      font-size: 0.47rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.92); font-family: 'Recursive', sans-serif;
+    }
     .p-grain-ov {
       position: absolute; inset: 0; opacity: 0.1; pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
       background-size: 100px;
     }
-    /* photo placeholder gradients — replace .p-bg divs with <img> when you have real photos */
+    /* photo placeholder gradients — replace .p-bg divs with <img src="…"> when you have real photos */
+    /* Pottery */
     .ph-p1 { background: linear-gradient(145deg, #c8a48e 0%, #a07660 40%, #7d5843 100%); }
     .ph-p2 { background: linear-gradient(155deg, #d2b09a 0%, #b38a68 50%, #8d6244 100%); }
     .ph-p3 { background: linear-gradient(130deg, #bda090 0%, #9c7860 40%, #7a5844 100%); }
+    .ph-p4 { background: linear-gradient(160deg, #c4967a 0%, #a3714e 45%, #7e5236 100%); }
+    /* Hiking */
     .ph-h1 { background: linear-gradient(145deg, #97b4a6 0%, #6c9888 40%, #4c7a68 100%); }
     .ph-h2 { background: linear-gradient(155deg, #89acba 0%, #5e92a8 50%, #3d6e86 100%); }
     .ph-h3 { background: linear-gradient(130deg, #7ab09e 0%, #548e7c 40%, #3d7060 100%); }
+    .ph-h4 { background: linear-gradient(150deg, #a3bfb0 0%, #6fa08a 45%, #4a7e68 100%); }
+    /* Furry friends */
+    .ph-ff1 { background: linear-gradient(145deg, #e8c99a 0%, #c9a06a 45%, #a07840 100%); }
+    .ph-ff2 { background: linear-gradient(155deg, #dbc098 0%, #b89464 50%, #906c3e 100%); }
+    .ph-ff3 { background: linear-gradient(135deg, #e2c49c 0%, #bf9862 40%, #9a7040 100%); }
+    .ph-ff4 { background: linear-gradient(160deg, #d8bc96 0%, #b49060 45%, #8e6c3c 100%); }
+    /* Misc / Graduation */
+    .ph-mc1 { background: linear-gradient(145deg, #b8a4c8 0%, #8e72a8 45%, #6a5282 100%); }
+    .ph-mc2 { background: linear-gradient(155deg, #bfaace 0%, #9478b0 50%, #72548e 100%); }
+    .ph-mc3 { background: linear-gradient(135deg, #c0a8cc 0%, #9476b4 40%, #6e5290 100%); }
+    .ph-mc4 { background: linear-gradient(160deg, #b2a0c4 0%, #8c6eaa 45%, #685086 100%); }
 
     /* ─── Lightbox ─── */
     .lightbox {
@@ -364,7 +483,129 @@
     }
     .lb-close-btn:hover { color: rgba(255,255,255,0.8); }
 
-    @media (max-width: 480px) { .photo-row { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) {
+      .hobby-cat:hover { margin: 0 -1.25rem; padding-left: 1.25rem; padding-right: 1.25rem; }
+    }
+    @media (max-width: 540px) { .photo-row { grid-template-columns: repeat(2, 1fr); } }
+
+    /* ─── Project detail card ─── */
+    .proj-modal {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(25,25,25,0.5);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.18s;
+    }
+    .proj-modal.open { opacity: 1; pointer-events: all; }
+    .proj-card {
+      background: var(--bg);
+      border: 1px solid var(--rule-bold);
+      max-width: 680px; width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      display: flex; flex-direction: column;
+      transform: translateY(20px);
+      transition: transform 0.28s cubic-bezier(0.16,1,0.3,1);
+    }
+    .proj-modal.open .proj-card { transform: translateY(0); }
+    .proj-card-hdr {
+      position: sticky; top: 0; z-index: 1;
+      background: var(--bg);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--rule);
+      flex-shrink: 0;
+    }
+    .proj-card-meta { display: flex; gap: 1rem; align-items: baseline; }
+    .proj-ctype {
+      font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--green);
+    }
+    .proj-cyear {
+      font-family: 'Recursive', sans-serif;
+      font-variation-settings: 'MONO' 1;
+      font-size: 0.7rem; letter-spacing: 0.06em;
+      color: var(--ink-dim);
+    }
+    .proj-close {
+      background: none; border: 1px solid var(--rule);
+      color: var(--ink-dim); cursor: pointer;
+      font-family: 'Recursive', sans-serif; font-size: 0.62rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.28rem 0.65rem;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .proj-close:hover { border-color: var(--ink-mid); color: var(--ink); }
+    .proj-inner { padding: 2rem 2.5rem 2.5rem; }
+    .proj-ctitle {
+      font-family: 'Young Serif', serif;
+      font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+      font-weight: 400; line-height: 1.2;
+      letter-spacing: -0.01em; color: var(--ink);
+      margin-bottom: 0.7rem;
+    }
+    .proj-cwip {
+      display: inline-block;
+      font-family: 'Recursive', sans-serif;
+      font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--green); background: var(--green-dim);
+      padding: 0.15em 0.6em; margin-left: 0.6rem;
+      vertical-align: middle; position: relative; top: -0.15em;
+    }
+    .proj-cconcept {
+      display: inline-block;
+      font-family: 'Recursive', sans-serif;
+      font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--ink-dim); background: rgba(25,25,25,0.04);
+      border: 1px solid var(--rule);
+      padding: 0.15em 0.6em; margin-left: 0.6rem;
+      vertical-align: middle; position: relative; top: -0.15em;
+    }
+    .proj-coneline {
+      font-size: 0.88rem; color: var(--ink-mid); line-height: 1.65;
+      font-variation-settings: 'slnt' -8;
+      margin-bottom: 1.75rem;
+    }
+    .proj-rule { border: none; border-top: 1px solid var(--rule); margin: 0 0 1.75rem; }
+    .proj-section { margin-bottom: 1.5rem; }
+    .proj-sh {
+      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--ink-dim); margin-bottom: 0.5rem;
+    }
+    .proj-section p { font-size: 0.875rem; color: var(--ink-mid); line-height: 1.7; margin: 0; }
+    .proj-section ul { list-style: none; padding: 0; margin: 0; }
+    .proj-section ul li {
+      font-size: 0.875rem; color: var(--ink-mid); line-height: 1.65;
+      padding-left: 1.2rem; position: relative; margin-bottom: 0.35rem;
+    }
+    .proj-section ul li::before {
+      content: '—'; position: absolute; left: 0;
+      color: var(--green); opacity: 0.45; font-size: 0.7rem; top: 0.3em;
+    }
+    .proj-lnks {
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+      margin-top: 2rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+    }
+    .proj-lnk {
+      font-size: 0.67rem; letter-spacing: 0.07em;
+      color: var(--green); text-decoration: none;
+      border: 1px solid var(--green);
+      padding: 0.28rem 0.85rem;
+      transition: background 0.12s, color 0.12s;
+    }
+    .proj-lnk:hover { background: var(--green); color: var(--bg); }
+    .proj-lnk-dim {
+      font-size: 0.67rem; letter-spacing: 0.07em;
+      color: var(--ink-dim); border: 1px solid var(--rule);
+      padding: 0.28rem 0.85rem;
+    }
+    @media (max-width: 640px) {
+      .proj-inner { padding: 1.5rem; }
+      .proj-card-hdr { padding: 0.85rem 1.25rem; }
+    }
 
     /* ─── Tech layer ─── */
 
@@ -400,17 +641,12 @@
     }
     .curr-k::before { content: '> '; color: var(--green); opacity: 0.5; }
 
-    /* Work — changelog-style counter */
-    .work-list { counter-reset: wc; }
-    .work-item { counter-increment: wc; }
+    /* Work */
     .w-year {
       font-family: 'Recursive', sans-serif;
       font-variation-settings: 'MONO' 1;
       letter-spacing: 0.04em;
-    }
-    .w-year::before {
-      content: '#' counter(wc, decimal-leading-zero) ' ';
-      color: var(--green); opacity: 0.35;
+      color: var(--green);
     }
 
     /* Notes — monospace dates, subtle timeline line */
@@ -445,19 +681,19 @@
 <!-- ─── HERO ─── -->
 <section class="hero">
   <div class="hero-body">
-<div class="hero-tag">Builder · Experimenter · Integrator</div>
+<div class="hero-tag">Builder · Experimenter · Synthesizer</div>
     <h1>Yiran<br>Fan</h1>
+    <div class="hero-cn">范奕然</div>
     <p class="hero-pull">
-      I work at the edge of disciplines — where obvious tools run out and you have to <strong>build your own from first principles.</strong>
+      I work at the edge of disciplines, where obvious tools run out and you have to <strong>build your own from first principles.</strong>
     </p>
     <p class="hero-sub">
       My method is <strong>deliberate experimentation</strong>. My instinct is to find the connections between fields that don't usually talk to each other, then build something from the gap.
     </p>
-    <p class="hero-method">[ <code>observe</code> → experiment → synthesize → <code>ship</code> ]</p>
   </div>
   <div class="hero-strip">
-    <span class="strip-val">[Domain A] · [Domain B] · [Domain C] · based in Los Angeles, CA</span>
-    <span class="strip-val avail"><span class="avail-dot"></span> Open to conversations</span>
+    <span class="strip-val">Cognitive Neuroscience · Artificial Intelligence · Statistical Inference · Feminism</span>
+    <a href="#contact" class="strip-val avail"><span class="avail-dot"></span> Open to conversations</a>
   </div>
 </section>
 
@@ -468,35 +704,47 @@
     <h2 class="sec-h2">Experiments &amp; projects</h2>
   </div>
   <div class="work-list">
-    <a href="#" class="work-item r">
+    <a href="#" class="work-item r" data-project="experimentation-platform">
       <div class="w-left">
-        <span class="w-name">Project Experiment Alpha <span class="w-type">Research · Tool</span></span>
+        <span class="w-name">Experimentation Platform <span class="w-type">Causal Inference · Systems</span></span>
+      </div>
+      <div class="w-right"><span class="w-year">2026</span></div>
+    </a>
+    <a href="#" class="work-item r" data-project="pottery-diary">
+      <div class="w-left">
+        <span class="w-name">Pottery Diary <span class="w-type">Tool · Concept</span></span>
+      </div>
+      <div class="w-right"><span class="w-year">2026</span></div>
+    </a>
+    <a href="#" class="work-item r" data-project="neural-data-analysis">
+      <div class="w-left">
+        <span class="w-name">Predictive Modeling of Neural Information Flow <span class="w-type">Computational Neuroscience · Course Project</span></span>
+      </div>
+      <div class="w-right"><span class="w-year">2025</span></div>
+    </a>
+    <a href="#" class="work-item r" data-project="vacuum-robot">
+      <div class="w-left">
+        <span class="w-name">Coverage Path Planning: Vacuum Robot <span class="w-type">Reinforcement Learning · Course Project</span></span>
+      </div>
+      <div class="w-right"><span class="w-year">2025</span></div>
+    </a>
+    <a href="#" class="work-item r" data-project="lightweight-inference">
+      <div class="w-left">
+        <span class="w-name">Optimizing LLMs for CPU Inference <span class="w-type">ML Systems · Course Project</span></span>
       </div>
       <div class="w-right"><span class="w-year">2024</span></div>
     </a>
-    <a href="#" class="work-item r">
+    <a href="#" class="work-item r" data-project="digital-mental-health">
       <div class="w-left">
-        <span class="w-name">Interdisciplinary Study Beta <span class="w-type">Systems · Design</span></span>
+        <span class="w-name">LLMs in Mental Health Diagnosis <span class="w-type">Digital Mental Health · NLP</span></span>
       </div>
       <div class="w-right"><span class="w-year">2024</span></div>
     </a>
-    <a href="#" class="work-item r">
+    <a href="#" class="work-item r" data-project="undergrad-thesis">
       <div class="w-left">
-        <span class="w-name">Integration Framework Gamma <span class="w-type">Technology</span></span>
+        <span class="w-name">Person-Specific Right PFC Organization <span class="w-type">Computational Neuroscience · Thesis</span></span>
       </div>
       <div class="w-right"><span class="w-year">2023</span></div>
-    </a>
-    <a href="#" class="work-item r">
-      <div class="w-left">
-        <span class="w-name">Experimental Platform Delta <span class="w-type">Infrastructure</span></span>
-      </div>
-      <div class="w-right"><span class="w-year">2023</span></div>
-    </a>
-    <a href="#" class="work-item r">
-      <div class="w-left">
-        <span class="w-name">Synthesis Project Epsilon <span class="w-type">Research · Writing</span></span>
-      </div>
-      <div class="w-right"><span class="w-year">2022</span></div>
     </a>
   </div>
 </section>
@@ -509,41 +757,41 @@
       <h2 class="sec-h2">Life outside the work</h2>
     </div>
     <p class="personal-blockquote r">
-      "I'm drawn to ideas that take a long time to understand — the kind that quietly reshape how you see something you thought was settled."
+      "I'm drawn to ideas that take a long time to understand. The kind that quietly reshape how you see something you thought was settled."
     </p>
     <div class="personal-cols">
       <div class="personal-prose r">
         <p>
-          Outside the building, I'm quieter. I notice things slowly — how a room feels when people leave it, the exact way someone phrased something. I think in systems but feel in specifics.
+          I notice things slowly: how a room feels when people leave it, the exact way someone phrased something. I think in systems but feel in specifics.
         </p>
         <p>
-          I'm an INFJ in the most practical sense: I process a lot internally, care deeply about what and who I give attention to, and tend to connect things across different domains before I can explain why I'm doing it.
+          I'm an INFJ in the most practical sense. I process a lot internally, care deeply about what and who I give attention to, and tend to connect things across domains before I can explain why.
         </p>
         <p>
-          [Add something specific and honest here — a hobby, a practice, something that reflects your actual character. This is where personality comes through.]
+          I've been doing pottery for a little over a year. Every piece carries the decisions you made along the way: a wobble from throwing, a mark from trimming, a glaze that broke differently than expected. You learn to slow down and notice what's actually there, not what you want to see. And to accept that. A piece with a flaw is still a piece.
         </p>
       </div>
       <div class="currently r">
         <div class="currently-header">Right now</div>
         <div class="curr-row">
           <span class="curr-k">Reading</span>
-          <span class="curr-v"><em>[Book title]</em> — [why it interests you]</span>
+          <span class="curr-v"><em>All About Love: New Visions</em></span>
         </div>
         <div class="curr-row">
           <span class="curr-k">Thinking about</span>
-          <span class="curr-v"><em>[A question]</em> that keeps returning in different forms</span>
+          <span class="curr-v">The gap between what AI can simulate and what it can't touch</span>
         </div>
         <div class="curr-row">
           <span class="curr-k">Into lately</span>
-          <span class="curr-v">[Interest] · [Another one]</span>
+          <span class="curr-v">Gardening (succulents), throwing pots for them</span>
         </div>
         <div class="curr-row">
           <span class="curr-k">Listening to</span>
-          <span class="curr-v"><em>[Artist or album]</em></span>
+          <span class="curr-v"><em>Sonic Youth, 海马星球 Seahorse Planet</em> (podcast)</em></span>
         </div>
         <div class="curr-row">
           <span class="curr-k">Based in</span>
-          <span class="curr-v">[Los Angeles, CA]</span>
+          <span class="curr-v">Los Angeles, CA</span>
         </div>
       </div>
     </div>
@@ -553,8 +801,8 @@
         <span class="hobby-label">Photo journal</span>
         <span class="hobby-hint">click to enlarge</span>
       </div>
-      <div class="hobby-cat">
-        <span class="hc-label">Pottery</span>
+      <div class="hobby-cat r" data-theme="pottery">
+        <div class="hc-header"><span class="hc-label">Pottery</span><span class="hc-count">04 photos</span></div>
         <div class="photo-row">
           <div class="p-thumb" data-caption="Pottery — wheel work" data-bg="ph-p1">
             <div class="p-bg ph-p1"></div>
@@ -571,10 +819,15 @@
             <div class="p-grain-ov"></div>
             <div class="p-ov"><span class="p-cap">Kiln</span></div>
           </div>
+          <div class="p-thumb" data-caption="Pottery — finished pieces" data-bg="ph-p4">
+            <div class="p-bg ph-p4"></div>
+            <div class="p-grain-ov"></div>
+            <div class="p-ov"><span class="p-cap">Finished</span></div>
+          </div>
         </div>
       </div>
-      <div class="hobby-cat">
-        <span class="hc-label">Hiking</span>
+      <div class="hobby-cat r" data-theme="hiking">
+        <div class="hc-header"><span class="hc-label">Hiking</span><span class="hc-count">04 photos</span></div>
         <div class="photo-row">
           <div class="p-thumb" data-caption="Hiking — trail views" data-bg="ph-h1">
             <div class="p-bg ph-h1"></div>
@@ -591,13 +844,69 @@
             <div class="p-grain-ov"></div>
             <div class="p-ov"><span class="p-cap">Landscape</span></div>
           </div>
+          <div class="p-thumb" data-caption="Hiking — golden hour" data-bg="ph-h4">
+            <div class="p-bg ph-h4"></div>
+            <div class="p-grain-ov"></div>
+            <div class="p-ov"><span class="p-cap">Golden hour</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="hobby-cat r" data-theme="furry">
+        <div class="hc-header"><span class="hc-label">Furry Friends</span><span class="hc-count">04 photos</span></div>
+        <div class="photo-row">
+          <div class="p-thumb" data-caption="Furry friends" data-bg="ph-ff1">
+            <div class="p-bg ph-ff1"></div>
+            <div class="p-grain-ov"></div>
+            <div class="p-ov"><span class="p-cap">Snoozing</span></div>
+          </div>
+          <div class="p-thumb" data-caption="Furry friends" data-bg="ph-ff2">
+            <div class="p-bg ph-ff2"></div>
+            <div class="p-grain-ov"></div>
+            <div class="p-ov"><span class="p-cap">Curious</span></div>
+          </div>
+          <div class="p-thumb" data-caption="Furry friends" data-bg="ph-ff3">
+            <div class="p-bg ph-ff3"></div>
+            <div class="p-grain-ov"></div>
+            <div class="p-ov"><span class="p-cap">Playful</span></div>
+          </div>
+          <div class="p-thumb" data-caption="Furry friends" data-bg="ph-ff4">
+            <div class="p-bg ph-ff4"></div>
+            <div class="p-grain-ov"></div>
+            <div class="p-ov"><span class="p-cap">Portrait</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="hobby-cat r" data-theme="graduation">
+        <div class="hc-header"><span class="hc-label">Misc &amp; Graduation</span><span class="hc-count">04 photos</span></div>
+        <div class="photo-row">
+          <div class="p-thumb" data-caption="Graduation" data-bg="ph-mc1">
+            <div class="p-bg ph-mc1"></div>
+            <div class="p-grain-ov"></div>
+            <div class="p-ov"><span class="p-cap">Ceremony</span></div>
+          </div>
+          <div class="p-thumb" data-caption="Graduation" data-bg="ph-mc2">
+            <div class="p-bg ph-mc2"></div>
+            <div class="p-grain-ov"></div>
+            <div class="p-ov"><span class="p-cap">Cap &amp; gown</span></div>
+          </div>
+          <div class="p-thumb" data-caption="Graduation" data-bg="ph-mc3">
+            <div class="p-bg ph-mc3"></div>
+            <div class="p-grain-ov"></div>
+            <div class="p-ov"><span class="p-cap">Celebration</span></div>
+          </div>
+          <div class="p-thumb" data-caption="Graduation" data-bg="ph-mc4">
+            <div class="p-bg ph-mc4"></div>
+            <div class="p-grain-ov"></div>
+            <div class="p-ov"><span class="p-cap">Friends</span></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ─── THINKING ─── -->
+<!-- ─── THINKING (commented out — uncomment when ready to add notes/essays) ─── -->
+<!--
 <section class="section strong" id="thinking">
   <div class="sec-head r">
     <span class="sec-label">Thinking</span>
@@ -631,25 +940,41 @@
     </a>
   </div>
 </section>
+-->
 
 <!-- ─── CONTACT ─── -->
 <section class="section" id="contact">
   <div class="r">
     <h2 class="contact-h2">Let's think<br>together.</h2>
     <p class="contact-body">Good conversations are an experiment too. I'm interested in people who are building something, questioning something, or sitting with a problem that doesn't have an obvious shape. Reach out.</p>
-    <a href="mailto:hello@example.com" class="contact-email">hello@example.com</a>
+    <button class="contact-email" id="copyEmailBtn" type="button"><span class="bracket">[</span><span>copy email</span><span class="bracket">]</span></button>
+    <span class="contact-toast" id="contactToast" aria-live="polite"></span>
     <div class="contact-links">
-      <a href="#" class="c-link">GitHub ↗</a>
-      <a href="#" class="c-link">LinkedIn ↗</a>
-      <a href="#" class="c-link">Resume ↓</a>
+      <a href="https://github.com/yiranf-fan" class="c-link" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      <a href="https://www.linkedin.com/in/yiranf-fan/" class="c-link" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+      <a href="#" class="c-link" target="_blank" rel="noopener noreferrer">Resume ↓</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <span>© 2025 Yiran Fan</span>
-  <span>Built and maintained by Yiran Fan</span>
+  <span>© 2026 Yiran Fan</span>
+  <span>Built and maintained by Yiran Fan with Claude Code</span>
 </footer>
+
+<!-- Project detail card -->
+<div class="proj-modal" id="projModal" role="dialog" aria-modal="true">
+  <div class="proj-card" id="projCard">
+    <div class="proj-card-hdr">
+      <div class="proj-card-meta">
+        <span class="proj-ctype" id="projCardType"></span>
+        <span class="proj-cyear" id="projCardYear"></span>
+      </div>
+      <button class="proj-close" id="projClose" aria-label="Close project">close ×</button>
+    </div>
+    <div class="proj-inner" id="projCardInner"></div>
+  </div>
+</div>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lb">
@@ -703,6 +1028,217 @@
   document.getElementById('lbCloseBtn').addEventListener('click', closeLb);
   lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('open')) closeLb(); });
+
+  // ─── Project modal ───
+  const PROJECTS = {
+    "experimentation-platform": {
+      title: "Experimentation Platform",
+      type: "Causal Inference · Systems",
+      year: "2026",
+      oneline: "A unified A/B testing and causal estimation system connecting experiment metrics, treatment effect modeling, and deployment decisions in a single workflow.",
+      context: "Most data teams treat A/B testing and causal inference as disconnected workflows, running experiments in one tool and modeling heterogeneous effects in another. This makes it hard to move from whether the intervention worked to who should be treated and what to do next, across both tech and healthcare settings.",
+      built: [
+        "Experimentation metrics service (complete): FastAPI + DuckDB backend computing conversion rates, treatment effects with confidence intervals, CUPED variance reduction, power and sample size calculations, segmentation with FDR correction, SRM detection, outlier checks, guardrail evaluation, and recommendation outputs (ship / hold / stop)",
+        "Config-driven metric registry with multi-domain support (tech and synthetic healthcare), a Streamlit exploration dashboard, and Dockerized local deployment",
+        "Causal estimation toolkit (in progress): ATE estimation and initial dataset integration complete; CATE modeling, uplift targeting, and diagnostics being added",
+        "Decision memo layer (emerging): rule-based recommendations from primary metrics, guardrails, and data quality checks; structured integration with causal outputs planned"
+      ],
+      how: "Event logs feed into the metrics engine, which computes group-level statistics, runs quality checks (SRM detection, outlier detection), and returns a decision recommendation. The causal toolkit extends this by estimating treatment effect heterogeneity across subgroups. The two layers are being connected through a decision memo that structures statistical outputs into actionable rollout guidance.",
+      why: "The experimentation layer is fully functional and reflects how production experimentation systems work at data-driven organizations. The causal layer adds a second question: not just whether the intervention worked, but who to treat and why. Together they form a system that mirrors the full decision lifecycle, from raw event data to policy recommendations.",
+      links: [{ label: "GitHub", href: "https://github.com/yiranf-fan/intervention-effects-lab" }],
+      status: "wip"
+    },
+    "pottery-diary": {
+      title: "Pottery Diary",
+      type: "Tool · Concept",
+      year: "2026",
+      oneline: "A personal system for logging, analyzing, and comparing pottery experiments, tracking clay bodies, glaze layers, and firing conditions to surface patterns across sessions.",
+      context: "Studio pottery is highly variable and poorly documented. Clay body, glaze chemistry, layering order, and firing conditions all interact in ways that are hard to reconstruct from memory alone. Without structured records, successful results cannot be reliably reproduced and failures cannot be diagnosed.",
+      built: [
+        "Experiment logging: capture clay body, glaze layers (with application method and thickness), and firing details per piece",
+        "Visual gallery: filter past pieces by clay body, glaze, or firing type",
+        "Layering lookup: query glaze combinations (e.g. Celadon + Chun) and surface all past results with that stack",
+        "Comparison view: side-by-side of the same glaze on different clay bodies, or the same clay with different layering"
+      ],
+      how: "Each piece is modeled as an experiment with structured variables: clay body, glaze stack, and firing conditions. A relational schema links glazes, layer combinations, and outcomes, making it possible to query patterns across sessions rather than just browse them.",
+      why: "A notebook cannot tell you that celadon runs on porcelain but not on stoneware. This system is designed to make that kind of cross-session pattern visible, turning a personal studio practice into a searchable body of material knowledge.",
+      links: [{ label: "GitHub (coming soon)", dim: true }],
+      status: "concept"
+    },
+    "neural-data-analysis": {
+      title: "Predictive Modeling of Information Flow Across Brain Regions on Multi-Scale Level",
+      type: "Computational Neuroscience",
+      year: "2025",
+      oneline: "Used LASSO-regularized GLMs and spectral neural models on Neuropixels data to quantify how upstream brain activity predicts firing patterns in downstream regions during a visual decision-making task.",
+      context: "Understanding how information flows between brain regions is central to neuroscience. It reveals how circuits process sensory inputs, generate decisions, and coordinate behavior. Most prior work uses statistical methods at either the population or neuron level, but rarely both, and rarely on large-scale multi-region recordings.",
+      built: [
+        "Population-level pipeline: Gaussian EM imputation of missing cross-region recordings, then LASSO-regularized GLMs (Poisson / Negative Binomial) predicting downstream spike counts from upstream regional activity",
+        "Neuron-level pipeline: frequency-domain features of single-neuron spike trains used to train log-linear models for individual neuron prediction across sessions",
+        "Four source-to-target analyses: whole-cortex-to-target, visual-cortex-to-target, visual plus thalamus combined, and midbrain-to-hippocampus/basal ganglia"
+      ],
+      how: "Normalized spike counts per ROI were computed from the Steinmetz Neuropixels dataset (30,000 neurons, 42 brain areas). EM imputation filled missing cross-region recordings; LASSO selected informative source ROIs; GLMs were fit on selected predictors plus task covariates (stimulus contrast, no-go indicator). Out-of-sample prediction quality served as a proxy for information flow.",
+      why: "Midbrain activity was most predictable; visual and thalamic areas served as key contributors. The two-level approach, combining population GLMs with neuron-level spectral features, captures complementary aspects of functional connectivity and provides a framework for studying task-relevant modulation across brain structures.",
+      links: [{ label: "Report (PDF)", href: "technical-course-projects/neural-data-analysis/STATS220%20Report.pdf", pdf: true }]
+    },
+    "vacuum-robot": {
+      title: "Reinforcement Learning for Coverage Path Planning on Vacuum Robot",
+      type: "Deep Reinforcement Learning",
+      year: "2025",
+      oneline: "Trained PPO, DQN, and Rainbow DQN agents with custom reward shaping to achieve full spatial coverage in unseen indoor grid environments, without retraining per layout.",
+      context: "Most RL approaches to navigation optimize for point-to-point efficiency in known environments. Coverage path planning, which involves maximizing area cleaned while minimizing redundant motion across novel unseen layouts, is a harder and less-studied problem that better reflects real-world deployment constraints.",
+      built: [
+        "Grid-based household environment with configurable walls, rooms, and dirt clusters (up to 40x30 grid)",
+        "Three RL algorithms: PPO (on-policy), DQN (value-based), Rainbow DQN (distributional + prioritized replay + noisy layers + n-step bootstrapping)",
+        "Per-algorithm reward shaping wrappers distinguishing exploration, coverage, and goal-completion phases",
+        "Spatial encoding: one-hot position maps, orientation vectors, obstacle memory maps, convolutional preprocessing layers",
+        "Optuna hyperparameter optimization across all algorithms and environment types"
+      ],
+      how: "The robot navigates a 2D grid with three discrete actions: rotate plus or minus 45 degrees, or move forward. Observations include current position, orientation, a dirt map, and a memory map of explored obstacles. Phase-aware reward functions reward new tile coverage on first visit and penalize redundant motion. Models were trained across four environment types and evaluated on held-out configurations.",
+      why: "PPO consistently achieved the highest and most structured coverage. Reward phase design and spatial encoding quality mattered more than algorithmic complexity. Rainbow DQN showed promise in moderate environments but proved sensitive to reward structure in large maps, highlighting the nuanced tradeoffs in applying deep RL to structured spatial domains.",
+      links: [
+        { label: "Report (PDF)", href: "technical-course-projects/vacuum-robot/CS224R_Final_Report.pdf", pdf: true },
+        { label: "GitHub (Collaborative)", href: "https://github.com/ma-siqi/224r_project" }
+      ]
+    },
+    "lightweight-inference": {
+      title: "Optimizing LLMs for CPU: Throughput Gains with Pruning, Quantization, and More",
+      type: "ML Systems",
+      year: "2024",
+      oneline: "Benchmarked quantization and pruning strategies for on-CPU LLM inference, achieving up to 99.6% throughput improvement on Gemma 2B and Llama 3.2 1B with minimal quality degradation.",
+      context: "Running LLMs locally on CPUs is increasingly valuable for cost efficiency, privacy, and edge deployment. CPU inference is significantly slower than GPU, and most optimization research targets GPU hardware. Systematic benchmarking of combined optimization strategies on CPU-constrained hardware is less common.",
+      built: [
+        "Evaluation pipeline using LM Evaluation Harness (HellaSwag, CNN/DailyMail) with hardware-level speed metrics: throughput, latency, time-to-first-token",
+        "Quantization experiments: int8 dynamic, int8 weight-only, int4 weight-only on Gemma 2B and Llama 3.2 1B",
+        "Pruning experiments: global and layer-specific unstructured sparsity at multiple levels (20% to 80%)",
+        "Combined optimization: quantization + pruning + torch.compile graph-level optimization"
+      ],
+      how: "Optimization techniques were applied individually and in combination to Gemma 2B and Llama 3.2 1B via HuggingFace. Quality was measured on benchmark tasks; speed was measured via throughput, latency, and TTFT. A systematic sweep across technique combinations identified the best quality-efficiency tradeoffs.",
+      why: "Int4 weight-only quantization consistently offered the best throughput gains (up to 99.6%) with minimal accuracy loss. Light pruning (20% unstructured) struck a good balance; aggressive pruning significantly degraded outputs. Combining int4 with torch.compile yielded the largest overall gains, pointing toward practical deployment paths for resource-constrained systems.",
+      links: [
+        { label: "Report (PDF)", href: "technical-course-projects/lightweight-inference/CS229S%20Final%20Report.pdf", pdf: true },
+        { label: "GitHub", href: "https://github.com/yiranf-fan/cs229s-project" }
+      ]
+    },
+    "digital-mental-health": {
+      title: "LLMs Underperform on Anxiety and Depression Detection Using Therapy Conversations",
+      type: "Digital Mental Health · NLP",
+      year: "2024",
+      oneline: "A first-step benchmark showing that state-of-the-art LLMs fail to outperform traditional ML on multi-label anxiety and depression classification from psychotherapy transcripts.",
+      context: "LLMs are increasingly considered for mental health support, but their diagnostic value on real clinical conversation, specifically long-form naturalistic therapy sessions, had not been systematically evaluated. Most prior NLP work in mental health uses short social media text, not clinician-guided dialogue with diagnosis-anchored labels.",
+      built: [
+        "Fine-tuned transformer models: BERT, RoBERTa, Longformer with truncation and sub-document slicing with majority-vote boosting",
+        "Fine-tuned Mistral-7B with qLoRA (0.58% of parameters trained) on full transcripts up to 8,192 tokens",
+        "SVM baseline with Bag-of-Words and linguistic dictionaries (concreteness scores, eight basic emotions): 30,770 features total",
+        "GPT evaluation via prompting on 3,503 de-identified psychotherapy session transcripts (Alexander Street Press dataset)"
+      ],
+      how: "Each transcript was classified as having anxiety, depression, both, or neither (multi-label). Models were compared on weighted F1 and weighted AUROC to handle class imbalance. Sub-document slicing with majority-vote and OR-pooling addressed long-context limitations in BERT/RoBERTa. Mistral was fine-tuned with qLoRA to cover the full transcript within its extended context window.",
+      why: "State-of-the-art LLMs did not improve on traditional ML for this task. If LLMs cannot perform well on structured, diagnosis-anchored therapy transcripts, the cleanest clinical setting, deploying them on messier real-world conversations would be premature. The work establishes a ceiling benchmark for future models to beat.",
+      links: [
+        { label: "arXiv preprint", href: "https://arxiv.org/abs/2407.13228" },
+        { label: "Applied Sciences", href: "https://www.mdpi.com/2076-3417/16/7/3388" }
+      ]
+    },
+    "undergrad-thesis": {
+      title: "Exploration of Person-Specific Functional Organization in Right Prefrontal Cortex",
+      type: "Computational Neuroscience",
+      year: "2023",
+      oneline: "Analyzed a high-density precision fMRI dataset to show that right prefrontal cortex functional organization is person-specific and reliable within individuals, a signal masked by traditional group-averaging approaches.",
+      context: "Cognitive control is widely studied in neuroscience, but how the right prefrontal cortex implements it remains unclear. Traditional neuroimaging collects limited data per person and averages across subjects, which can wash out the individual-level functional architecture that actually governs behavior.",
+      built: [
+        "Within- and between-subject activation similarity analysis across 88 task contrasts and right PFC vertices, applied to a high-density precision fMRI dataset from two extensively scanned individuals (approximately 9 hours each)",
+        "Exploratory factor analysis identifying latent functional dimensions underlying activation differences across right PFC",
+        "Analysis pipeline spanning a large cognitive control task battery covering multiple domains of cognitive function"
+      ],
+      how: "The dataset comprised two individuals scanned across approximately 9 hours each, performing tasks spanning 88 contrasts across multiple cognitive control domains. For each contrast, activation similarity was computed within and between subjects across right PFC vertices. Factor analysis then grouped vertices into interpretable clusters based on their activation profiles.",
+      why: "Within-subject similarity exceeded between-subject similarity across nearly all 88 contrasts, strong evidence that right PFC functional organization is person-specific yet reliable within a given individual. Eight latent factors, tentatively linked to task performance and task context, were identified. The findings support precision neuroimaging as a way to capture functional structure that group averages obscure.",
+      links: [{ label: "Thesis (PDF)", href: "undergrad-thesis/Yiran_Fan_Thesis_Final_Draft.pdf", pdf: true }]
+    }
+  };
+
+  const projModal = document.getElementById("projModal");
+  const projCard  = document.getElementById("projCard");
+  const projCardInner = document.getElementById("projCardInner");
+  const projCardType  = document.getElementById("projCardType");
+  const projCardYear  = document.getElementById("projCardYear");
+  const projClose = document.getElementById("projClose");
+
+  function openProj(slug) {
+    const p = PROJECTS[slug];
+    if (!p) return;
+    projCardType.textContent = p.type;
+    projCardYear.textContent = p.year;
+    const badge = p.status === "wip" ? '<span class="proj-cwip">In Progress</span>' : p.status === "concept" ? '<span class="proj-cconcept">Concept</span>' : "";
+    const items = p.built.map(b => "<li>" + b + "</li>").join("");
+    const lnks = p.links.map(l => {
+      if (l.dim) return '<span class="proj-lnk-dim">' + l.label + "</span>";
+      const ext = (l.href && (l.href.startsWith("http") || l.pdf)) ? ' target="_blank" rel="noopener"' : "";
+      return '<a href="' + l.href + '" class="proj-lnk"' + ext + ">" + l.label + " ↗</a>";
+    }).join("");
+    projCardInner.innerHTML =
+      '<h2 class="proj-ctitle">' + p.title + badge + "</h2>" +
+      '<p class="proj-coneline">' + p.oneline + "</p>" +
+      '<hr class="proj-rule">' +
+      '<div class="proj-section"><h3 class="proj-sh">Context</h3><p>' + p.context + "</p></div>" +
+      '<div class="proj-section"><h3 class="proj-sh">What I built</h3><ul>' + items + "</ul></div>" +
+      '<div class="proj-section"><h3 class="proj-sh">How it works</h3><p>' + p.how + "</p></div>" +
+      '<div class="proj-section"><h3 class="proj-sh">Why it matters</h3><p>' + p.why + "</p></div>" +
+      '<div class="proj-lnks">' + lnks + "</div>";
+    projCard.scrollTop = 0;
+    projModal.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeProj() {
+    projModal.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll(".work-item[data-project]").forEach(item => {
+    item.addEventListener("click", e => { e.preventDefault(); openProj(item.dataset.project); });
+  });
+  projClose.addEventListener("click", closeProj);
+  projModal.addEventListener("click", e => { if (e.target === projModal) closeProj(); });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && projModal.classList.contains("open")) closeProj();
+  });
+
+  // Basic email obfuscation + elegant copy interaction
+  const copyEmailBtn = document.getElementById('copyEmailBtn');
+  const contactToast = document.getElementById('contactToast');
+  if (copyEmailBtn) {
+    const codes = [121, 105, 114, 97, 110, 46, 121, 114, 102, 97, 110, 64, 103, 109, 97, 105, 108, 46, 99, 111, 109];
+    const email = String.fromCharCode(...codes);
+    let toastTimer;
+
+    const showToast = (msg) => {
+      if (!contactToast) return;
+      contactToast.textContent = msg;
+      contactToast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => contactToast.classList.remove('show'), 1600);
+    };
+
+    copyEmailBtn.addEventListener('click', async () => {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(email);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = email;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'absolute';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        showToast('Email copied');
+      } catch (_) {
+        showToast('Copy failed');
+      }
+    });
+  }
 </script>
 </body>
 </html>
